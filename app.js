@@ -11,8 +11,13 @@ let h2 = document.querySelector("h2");
 function startGame() {
     if (started == false) {
         console.log("game is started");
-        started = true;
-        levelUp();
+        // IMPORTANT: We set 'started' to true after a tiny delay (100ms).
+        // This prevents the touch that starts the game from ALSO being counted 
+        // as a button click immediately.
+        setTimeout(function() {
+             started = true;
+             levelUp();
+        }, 100); 
     }
 }
 
@@ -21,12 +26,7 @@ document.addEventListener('keypress', startGame);
 
 // 2. Listen for Touch/Click (Mobile)
 // We add this to the 'h2' or 'body' so mobile users can tap to start
-document.addEventListener('touchstart', function () {
-    // Only start if clicking on the background (not buttons) to avoid glitches
-    if (started == false) {
-        startGame();
-    }
-}, { once: true }); // {once:true} ensures it only fires the first time
+document.addEventListener('touchstart', startGame);
 
 function gameFlash(btn) {
     btn.classList.add('flash');
@@ -101,4 +101,5 @@ function reset() {
     level = 0;
     gameSeq = [];
     userSeq = [];
+
 }
