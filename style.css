@@ -18,8 +18,11 @@ body {
 
 .btn-container {
     display: flex;
+    flex-wrap: wrap;
+    /* This creates the 2x2 grid automatically */
     justify-content: center;
-    align-items: center;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .btn {
@@ -88,5 +91,33 @@ body {
 
     100% {
         transform: translateX(0);
+    }
+}
+
+/* 2. Media Query for Phones (Screens smaller than 768px) */
+@media (max-width: 768px) {
+
+    /* Adjust the heading text size */
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    /* Shrink the buttons */
+    .btn {
+        height: 130px;
+        /* Smaller size for mobile */
+        width: 130px;
+        margin: 10px;
+        /* Reduce gap between buttons */
+        border-width: 5px;
+        /* Thinner border for cleaner look */
+    }
+}
+
+/* 3. Media Query for Very Small Phones (Screens smaller than 400px) */
+@media (max-width: 400px) {
+    .btn {
+        height: 110px;
+        width: 110px;
     }
 }
