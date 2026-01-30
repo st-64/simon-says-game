@@ -66,7 +66,7 @@ function checkAns(idx) {
 
     } else {
         // Game Over Logic
-        h2.innerHTML = `Game Over! Your score was <b>${level}</b> <br> Press any key to start.`;
+        h2.innerHTML = `Game Over! Your score was <b>${level}</b> <br> Press any key to start the game`;
         // 1. Add the red "Game Over" background class
         document.querySelector("body").classList.add("game-over");
 
@@ -96,10 +96,18 @@ for (const btn of allBtns) {
     btn.addEventListener('click', btnPress);
 }
 
+let highestScore = 0;
+let scoreDisplay = document.querySelector(".score");
 function reset() {
     started = false;
+
+    if (highestScore < level) {
+        highestScore = level;
+    }
+
+    scoreDisplay.innerHTML = `Your Highest Score: <b>${highestScore}</b>`;
+
     level = 0;
     gameSeq = [];
     userSeq = [];
-
 }
