@@ -8,9 +8,26 @@ let level = 0;
 
 let h2 = document.querySelector("h2");
 
+// 🔊 1. SETUP BACKGROUND MUSIC (Global Variable)
+// We define it outside so we can pause it later
+let bgMusic = new Audio("Sounds/bgm.mp3");
+bgMusic.loop = true; // Makes the music repeat forever
+bgMusic.volume = 0.5; // Set volume to 50%
+
+// 🔊 2. HELPER FUNCTION FOR SOUND EFFECTS
+function playSound(name) {
+    let audio = new Audio(`Sounds/${name}.mp3`);
+    audio.play();
+}
+
 function startGame() {
     if (started == false) {
         console.log("game is started");
+
+        // 🔊 3. PLAY START SOUND & BACKGROUND MUSIC
+        playSound("start");
+        bgMusic.play().catch(e => console.log("Audio play failed: ", e)); // Safety catch
+        
         // IMPORTANT: We set 'started' to true after a tiny delay (100ms).
         // This prevents the touch that starts the game from ALSO being counted 
         // as a button click immediately.
@@ -61,7 +78,17 @@ function checkAns(idx) {
     if (userSeq[idx] == gameSeq[idx]) {
         // 2. ONLY Level Up if the user has finished the entire sequence
         if (userSeq.length === gameSeq.length) {
+            // ✅ Case A: Level Completed (Victory!)
+            // We wait 250ms, then play Level Up sound (No click sound)
+            setTimeout(function () {
+                playSound("levelup");
+            }, 250);
+
             setTimeout(levelUp, 1000);
+        } else {
+            // ✅ Case B: Middle of sequence (Normal)
+            // Play the normal click sound immediately
+            playSound("click");
         }
 
     } else {
@@ -111,3 +138,4 @@ function reset() {
     gameSeq = [];
     userSeq = [];
 }
+
