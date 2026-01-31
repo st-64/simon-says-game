@@ -94,6 +94,12 @@ function checkAns(idx) {
     } else {
         // Game Over Logic
         h2.innerHTML = `Game Over! Your score was <b>${level}</b> <br> Press any key to start the game`;
+
+        // 🔊 Stop Music & Play Game Over
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
+        playSound("gameover");
+        
         // 1. Add the red "Game Over" background class
         document.querySelector("body").classList.add("game-over");
 
@@ -138,4 +144,5 @@ function reset() {
     gameSeq = [];
     userSeq = [];
 }
+
 
